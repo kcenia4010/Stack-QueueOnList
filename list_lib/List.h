@@ -27,6 +27,7 @@ public:
 	bool elem(T e);
 	void swap(T old_elem, T new_elem);
 	void combine(const TList<T>& other);
+	void InsertSort(T d);
 
 	TList<T>& operator = (const TList<T>& other);
 
@@ -67,7 +68,8 @@ inline void TList<T>::InsFirst(T d)
 	TListElem<T> *tmp = new TListElem<T>(d);
 	tmp->SetNext(root);
 	root = tmp;
-	if ((end == nullptr)||(root == nullptr)) end = root;
+	if ((end == nullptr)||(root == nullptr)) 
+		end = root;
 }
 
 template<class T>
@@ -80,7 +82,8 @@ inline void TList<T>::InsLast(T d)
 		tmp->SetPrev(end);
 		end->SetNext(tmp);
 		end = tmp;
-		if ((end == nullptr) || (root == nullptr)) end = root;
+		if ((end == nullptr) || (root == nullptr)) 
+			end = root;
 	}
 }
 
@@ -178,6 +181,33 @@ inline void TList<T>::combine(const TList<T> &other)
 	while (i != NULL)
 	{
 		this->InsLast(i->GetData());
+		i = i->GetNext();
+	}
+}
+
+template<class T>
+void TList<T>::InsertSort(T d)
+{
+	this->InsLast(d);
+	TListElem<T>* i = root;
+	TListElem<T>* j;
+	i = i->GetNext();
+	T tmp;
+	while (i != NULL)
+	{
+		j = i;
+		while (j != root)
+		{
+			if (j->GetData() >= j->GetPrev()->GetData())
+				break;
+			else
+			{
+				tmp = j->GetPrev()->GetData();
+				j->GetPrev()->SetData(j->GetData());
+				j->SetData(tmp);
+			}
+			j = j->GetPrev();
+		}
 		i = i->GetNext();
 	}
 }
