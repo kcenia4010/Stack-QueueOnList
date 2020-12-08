@@ -22,6 +22,9 @@ public:
 	friend ostream& operator << (ostream& ostr, const TQueueList<T1>& A);
 	template <class T1>
 	friend istream& operator >> (istream& istr, TQueueList<T1>& A);
+
+	TQueueList<T> queue(T* mas, int size);
+	void InsertSort(T elem);
 };
 
 template<class T>
@@ -59,6 +62,21 @@ T TQueueList<T>::pull()
 	T tmp = list.GetFirst()->GetData();
 	list.DelFirst();
 	return tmp;
+}
+
+template<class T>
+inline TQueueList<T> TQueueList<T>::queue(T* mas, int size)
+{
+	TQueueList<T> result;
+	for (int i = 0; i < size; i++)
+		result.pull(mas[i]);
+	return result;
+}
+
+template<class T>
+inline void TQueueList<T>::InsertSort(T elem)
+{
+	list.InsertSort(elem);
 }
 
 template<class T1>

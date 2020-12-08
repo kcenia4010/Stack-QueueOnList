@@ -23,6 +23,9 @@ public:
 	friend ostream& operator << (ostream& ostr, const TStackList<T1>& A);
 	template <class T1>
 	friend istream& operator >> (istream& istr, TStackList<T1>& A);
+
+	TStackList<T> stack(T* mas, int size);
+	void InsertSort(T elem);
 };
 
 template<class T>
@@ -61,6 +64,21 @@ T TStackList<T>::pull()
 	list.DelFirst();
 	return tmp;
  }
+
+template<class T>
+inline TStackList<T> TStackList<T>::stack(T* mas, int size)
+{
+	TStackList<T> result;
+	for (int i = 0; i < size; i++)
+		result.pull(mas[i]);
+	return result;
+}
+
+template<class T>
+inline void TStackList<T>::InsertSort(T elem)
+{
+	list.InsertSort(elem);
+}
 
 template<class T1>
 inline ostream& operator<<(ostream& ostr, const TStackList<T1>& A)
