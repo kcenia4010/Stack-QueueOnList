@@ -189,3 +189,34 @@ TEST(list, can_combine_elements)
 	result = A.GetLast()->GetData();
 	EXPECT_EQ(x1, result);
 }
+
+TEST(list, insert_sort)
+{
+	TList<int> A;
+	int x1 = 1, x2 = 2, x3 = 3;
+	A.InsFirst(x1);
+	A.InsLast(x2);
+	A.InsLast(x3);
+	A.InsLast(x2);
+
+	A.InsertSort(x1);
+
+	int result = A.GetLast()->GetData();
+	EXPECT_EQ(x3, result);
+	A.DelLast();
+
+	result = A.GetLast()->GetData();
+	EXPECT_EQ(x2, result);
+	A.DelLast();
+
+	result = A.GetLast()->GetData();
+	EXPECT_EQ(x2, result);
+	A.DelLast();
+
+	result = A.GetLast()->GetData();
+	EXPECT_EQ(x1, result);
+	A.DelLast();
+
+	result = A.GetLast()->GetData();
+	EXPECT_EQ(x1, result);
+}
